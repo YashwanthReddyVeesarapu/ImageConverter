@@ -44,7 +44,10 @@ const HomePage = () => {
     setLoading(true);
     const image = await loadImage(file);
     const webpDataURL = await convertToWebP(image);
-    setOutputImage(webpDataURL);
+    setOutputImage({
+      data: webpDataURL,
+      name: file.name.split(".")[0] + ".webp",
+    });
 
     setLoading(false);
   };
@@ -58,14 +61,17 @@ const HomePage = () => {
           name="image"
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
+          accept="image/png, image/gif, image/jpeg"
         />
-        <button type="submit">Convert</button>
+        <button disabled={!file} type="submit">
+          Convert
+        </button>
       </form>
       {loading && <>Loading...</>}
       {outputImage && (
         <div className="output_container">
-          <img src={outputImage} />
-          <a href={outputImage} download={file.name.split(".")[0] + ".webp"}>
+          <img src={outputImage.data} />
+          <a href={outputImage.data} download={outputImage.name}>
             Download
           </a>
         </div>

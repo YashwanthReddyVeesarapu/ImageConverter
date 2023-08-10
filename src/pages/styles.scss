@@ -32,4 +32,10 @@ a {
   text-decoration: none;
   border: none;
   margin: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: rgba(0, 0, 255, 0.469);
+  cursor: not-allowed;
 }
